@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <p>{{ message }}</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { fetchMessage } from '@/services/fetchers'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      message: ''
+    }
+  },
+  async created() {
+    try {
+      this.message = await fetchMessage()
+    }
+    catch(error){
+      this.message = 'server error :('
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
